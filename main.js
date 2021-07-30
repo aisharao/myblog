@@ -1,43 +1,32 @@
-var canvas=new fabric.Canvas('myCanvas');
+menu_list_array = ["Veg Margherita Pizza","cheese pizza","tandoori pizza","veg supreme pizza","paneer tikka pizza","deluxe veg pizza","veg extra cheese pizza" ];
 
-player_x=10;
-player_y=10;
-
-block_image_width=30;
-block_image_height=30;
-
-var player_object="";
-var block_image_object="";
-
-function player_update()
+function getmenu(){
+var htmldata;
+htmldata="<ol class='menulist'>"
+menu_list_array.sort();
+for(var i=0; i<menu_list_array.length; i++)
 {
-    fabric.Image.fromURL("player.png",function(Img){
-        player_object=Img;
-        player_object.scaleToWidth(150);
-        player_object.scaleToHeight(140);
-        player_object.set({
-            top:player_y,
-            left:player_x
-        });
-
-        canvas.add(player_object);
-
-    });
+    htmldata=htmldata + '<li>' + menu_list_array[i] + '</li>'
+}
+htmldata=htmldata + "</ol>"
+document.getElementById("display_menu").innerHTML=htmldata;
 }
 
-function new_image(get_image)
+function add_item(){
+var htmldata;
+var item=document.getElementById("add_item").value;
+menu_list_array.sort();
+htmldata="<section class='cards'>"
+for(var i=0; i<menu_list_array.length; i++)
 {
-    fabric.Image.fromURL(get_image,function(Img){
-        block_image_object=Img; 
-        
-        block_image_object.scaleToWidth(block_image_width);
-        block_image_object.scaleToHeight(block_image_height);
-        block_image_object.set({
-            top:player_y,
-            left:player_x
-        }); 
-        
-        canvas.add(block_image_object);
+    htmldata=htmldata+'<div class="card">' + '<img src="images/pizzaImg.png"/>' + menu_list_array[i] + '</div>'
+}
+htmldata=htmldata+"</section>"
+document.getElementById("display_addedmenu").innerHTML=htmldata;
+}
 
-    });  
+function add_top(){
+var item=document.getElementById("add_item").value;
+menu_list_array.push(item);
+add_item();
 }
